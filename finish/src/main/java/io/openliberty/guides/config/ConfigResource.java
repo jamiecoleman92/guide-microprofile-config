@@ -1,6 +1,5 @@
-// tag::copyright[]
 /*******************************************************************************
- * Copyright (c) 2017, 2018 IBM Corporation and others.
+ * Copyright (c) 2017, 2018, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,7 +8,6 @@
  * Contributors:
  *     IBM Corporation - Initial implementation
  *******************************************************************************/
-// end::copyright[]
 package io.openliberty.guides.config;
 
 import javax.enterprise.context.RequestScoped;
@@ -30,10 +28,8 @@ import org.eclipse.microprofile.config.spi.ConfigSource;
 @Path("/")
 public class ConfigResource {
 
-  // tag::config[]
   @Inject
   private Config config;
-  // end::config[]
 
   @GET
   @Produces(MediaType.APPLICATION_JSON)

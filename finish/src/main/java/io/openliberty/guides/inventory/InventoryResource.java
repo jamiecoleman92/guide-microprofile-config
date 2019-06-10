@@ -1,6 +1,5 @@
-// tag::copyright[]
 /*******************************************************************************
- * Copyright (c) 2017, 2019 IBM Corporation and others.
+ * Copyright (c) 2017, 2018, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +8,6 @@
  * Contributors:
  *     IBM Corporation - Initial implementation
  *******************************************************************************/
-// end::copyright[]
-// tag::config-methods[]
 package io.openliberty.guides.inventory;
 
 import java.util.Properties;
@@ -34,10 +31,8 @@ public class InventoryResource {
   @Inject
   InventoryManager manager;
 
-  // tag::config-injection[]
   @Inject
   InventoryConfig inventoryConfig;
-  // end::config-injection[]
 
   @GET
   @Path("{hostname}")
@@ -45,9 +40,7 @@ public class InventoryResource {
   public Response getPropertiesForHost(@PathParam("hostname") String hostname) {
 
     if (!inventoryConfig.isInMaintenance()) {
-      // tag::config-port[]
       Properties props = manager.get(hostname, inventoryConfig.getPortNumber());
-      // end::config-port[]
       if (props == null) {
         return Response.status(Response.Status.NOT_FOUND)
                        .entity("ERROR: Unknown hostname or the resource may not be " + 
@@ -59,12 +52,10 @@ public class InventoryResource {
       manager.add(hostname, props);
       return Response.ok(props).build();
     } else {
-      // tag::email[]
       return Response.status(Response.Status.SERVICE_UNAVAILABLE)
                      .entity("ERROR: Service is currently in maintenance. Contact: " +
                              inventoryConfig.getEmail().toString())
                      .build();
-      // end::email[]
     }
   }
 
@@ -82,5 +73,3 @@ public class InventoryResource {
   }
 
 }
-
-// end::config-methods[]
