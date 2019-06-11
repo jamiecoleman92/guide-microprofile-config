@@ -15,6 +15,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 import javax.enterprise.context.ApplicationScoped;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
+
 import io.openliberty.guides.inventory.model.InventoryList;
 import io.openliberty.guides.inventory.model.SystemData;
 
@@ -24,11 +30,12 @@ public class InventoryManager {
   private List<SystemData> systems = Collections.synchronizedList(new ArrayList<>());
   private InventoryUtils invUtils = new InventoryUtils();
 
-  public Properties get(String hostname, int portNumber) {
+public Properties get(String hostname, int portNumber) {
     return invUtils.getProperties(hostname, portNumber);
   }
 
   public void add(String hostname, Properties systemProps) {
+	System.out.println("Adding new value to local storage");
     Properties props = new Properties();
     props.setProperty("os.name", systemProps.getProperty("os.name"));
     props.setProperty("user.name", systemProps.getProperty("user.name"));
